@@ -127,33 +127,6 @@ dev.off()
 
 
 
-## Probability of low, moderate and high % MOD ----
-# NMA results
-low_nma <- mode_nma <- high_nma <- list()
-for (i in 1:length(nma_risk[, 1])) {
-  low_nma[[i]] <- pnorm(log(0.05/(1 - 0.05)), point_logit[i], sd_logit[i]) 
-  mode_nma[[i]] <- pnorm(log(0.20/(1 - 0.20)), point_logit[i], sd_logit[i]) - pnorm(log(0.05/(1 - 0.05)), point_logit[i], sd_logit[i]) 
-  high_nma[[i]] <- 1 - pnorm(log(0.20/(1 - 0.20)), point_logit[i], sd_logit[i]) 
-}
-
-# PMA results
-low_pma <- mode_pma <- high_pma <- list()
-for (i in 1:length(abs_pmas_new[, 1])) {
-  low_pma[[i]] <- pnorm(log(0.05/(1 - 0.05)), point_logit[(length(nma_risk[, 1]) + i)], sd_logit[(length(nma_risk[, 1]) + i)])
-  mode_pma[[i]] <- pnorm(log(0.20/(1 - 0.20)), point_logit[(length(nma_risk[, 1]) + i)], sd_logit[(length(nma_risk[, 1]) + i)]) - pnorm(log(0.05/(1 - 0.05)), point_logit[(length(nma_risk[, 1]) + i)], sd_logit[(length(nma_risk[, 1]) + i)]) 
-  high_pma[[i]] <- 1 - pnorm(log(0.20/(1 - 0.20)), point_logit[(length(nma_risk[, 1]) + i)], sd_logit[(length(nma_risk[, 1]) + i)]) 
-}
-
-# Bring together
-nma_all <- round(c(unlist(low_nma), unlist(mode_nma), unlist(high_nma)) * 100, 0)
-pma_all <- round(c(unlist(low_pma), unlist(mode_pma), unlist(high_pma)) * 100, 0)
-all_res_prob <- data.frame(prob = c(nma_all, pma_all), 
-                           level = rep(rep(c("low", "moderate", "high"), 2), c(rep(5, 3), rep(4, 3))) ,
-                           treat = c(rep(levels(trial_arm_data$treat), 3), rep(levels(trial_arm_data$treat)[-1], 3)),
-                           analysis = rep(c("Network meta-analysis", "Pairwise meta-analysis"), c(3 * 5, 3 * 4)))
-
-
-
 ## Prepare data for the barplots (% change) ----
 # Percentage change of % MOD (from each trial to NMA)
 interv <- levels(trial_arm_data$treat)

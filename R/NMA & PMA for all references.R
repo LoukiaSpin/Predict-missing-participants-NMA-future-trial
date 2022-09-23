@@ -15,7 +15,7 @@ devtools::install_github("LoukiaSpin/rnmamod", force = TRUE)
 
 
 ## Load libraries
-list.of.packages <- c("readxl", "rnmamod", "ggplot2", "ggpubr", "R2jags")
+list.of.packages <- c("rnmamod", "ggplot2", "ggpubr", "R2jags")
 lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages) 
 
 

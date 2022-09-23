@@ -15,7 +15,7 @@ devtools::install_github("LoukiaSpin/rnmamod", force = TRUE)
 
 
 ## Load libraries
-list.of.packages <- c("readxl", "rnmamod", "ggplot2", "R2jags")
+list.of.packages <- c("rnmamod", "ggplot2")
 lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages) 
 
 
@@ -77,7 +77,6 @@ save(nma_risk,
 
 ## Plot of baseline model
 base_mod <- baseline_model(base_risk = baseline,
-                           ref = "placebo",
                            n_chains = 3,
                            n_iter = 50000,
                            n_burnin = 5000,

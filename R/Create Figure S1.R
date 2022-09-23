@@ -194,35 +194,3 @@ ggarrange(fig_or, fig_tau,
           common.legend = FALSE)
 dev.off()
 
-
-
-## Node-splitting analysis ----
-# Run the model
-nodesplit_res <- run_nodesplit(re_nma)
-
-# Present the results
-nodesplit_plot(re_nma, 
-               nodesplit_res,
-               drug_names = c("PBO", "LABA", "ICS", "ICS+LABA", "tiotropium"))
-
-
-
-## Separate PMA (shared tau) analysis ----
-# Run the model
-seriesmeta_res <- run_series_meta(re_nma)
-
-# Present the results
-res_series_ma <- series_meta_plot(re_nma, 
-                                  seriesmeta_res,
-                                  drug_names = c("PBO", "LABA", "ICS", "ICS+LABA", "tiotropium"))
-
-tiff("./30_Analysis & Results/Figure S3.tiff", 
-     height = 20, 
-     width = 40, 
-     units = 'cm', 
-     compression = "lzw", 
-     res = 600)
-res_series_ma$forest_plots
-dev.off()
-
-
