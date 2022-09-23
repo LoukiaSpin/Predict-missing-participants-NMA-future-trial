@@ -16,8 +16,8 @@ lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages)
 
 
 ## Load RData
-load("./30_Analysis & Results/Results R analyses/nma_all refers.RData") # nma_risk
-load("./30_Analysis & Results/Results R analyses/pma_all refers.RData") # abs_pmas
+load("./R/NMA & PMA results/nma_all refers.RData") # nma_risk
+load("./R/NMA & PMA results/pma_all refers.RData") # abs_pmas
 
 
 

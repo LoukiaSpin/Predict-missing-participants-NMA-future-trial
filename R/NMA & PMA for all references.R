@@ -15,19 +15,15 @@ devtools::install_github("LoukiaSpin/rnmamod", force = TRUE)
 
 
 ## Load libraries
-list.of.packages <- c("rnmamod", "ggplot2", "ggpubr", "R2jags")
+list.of.packages <- c("rnmamod", "ggplot2", "ggpubr")
 lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages) 
 
-
-
-## Load function (baseline_model)
-source("./31_Functions/baseline.model_fun.R")
 
 
 
 ## Load data ----
 # MOD as the outcome
-baker <- as.data.frame(read.table("./30_Analysis & Results/19637942_Baker(2009).txt", 
+baker <- as.data.frame(read.table("./data/19637942_Baker(2009).txt", 
                                   header = TRUE))[, c(1:4, 9:16)]
 colnames(baker) <- c("t1", "t2", "t3", "t4", "r1", "r2", "r3", "r4", "n1", "n2", "n3", "n4")
 treat_names <- c("placebo", "LABA", "ICS", "ICS+LABA", "tiotropium")
@@ -79,8 +75,8 @@ for (i in 1:length(treat_names)) {
   nma_risk[[i]] <- re_nma[[i]]$abs_risk
 }
 names(nma_risk) <- treat_names
-save(nma_risk, 
-     file = "./30_Analysis & Results/Results R analyses/nma_all refers.RData")
+#(nma_risk, 
+#     file = "./R/Results R analyses/nma_all refers.RData")
 
 
 
@@ -89,7 +85,6 @@ base_mod <- list()
 for (i in 1:length(treat_names)) {
   message(paste(i, "out of", length(treat_names), "interventions"))
   base_mod[[i]] <- baseline_model(base_risk = baseline[[i]],
-                                  ref = treat_names[i],
                                   n_chains = 3,
                                   n_iter = 50000,
                                   n_burnin = 5000,
@@ -97,7 +92,7 @@ for (i in 1:length(treat_names)) {
 }
 
 # Get the baseline plot 
-tiff("./30_Analysis & Results/Figure S2.tiff", 
+tiff("./Figure S2.tiff", 
      height = 30, 
      width = 43, 
      units = 'cm', 

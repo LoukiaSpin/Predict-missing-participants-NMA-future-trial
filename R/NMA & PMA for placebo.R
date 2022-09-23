@@ -20,14 +20,9 @@ lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages)
 
 
 
-## Load function (baseline_model)
-source("./31_Functions/baseline.model_fun.R")
-
-
-
 ## Load data ----
 # MOD as the outcome
-baker <- as.data.frame(read.table("./30_Analysis & Results/19637942_Baker(2009).txt", 
+baker <- as.data.frame(read.table("./data/19637942_Baker(2009).txt", 
                                   header = TRUE))[, c(1:4, 9:16)]
 colnames(baker) <- c("t1", "t2", "t3", "t4", "r1", "r2", "r3", "r4", "n1", "n2", "n3", "n4")
 
@@ -66,12 +61,12 @@ mcmc_diagnostics(re_nma, par = c("tau", "EM[2,1]"))
 
 ## Save NMA results as .RData
 # Only predicted risks
-nma_risk <- re_nma$abs_risk
-save(nma_risk, 
-     file = "./30_Analysis & Results/Results R analyses/nma_results.RData")
+#nma_risk <- re_nma$abs_risk
+#save(nma_risk, 
+#     file = "./R/NMA & PMA results/nma_results.RData")
 # All results
 #save(re_nma, 
-#     file = "./30_Analysis & Results/Results R analyses/nma_all_results.RData")
+#     file = "./R/NMA & PMA results/nma_all_results.RData")
 
 
 
@@ -82,7 +77,7 @@ base_mod <- baseline_model(base_risk = baseline,
                            n_burnin = 5000,
                            n_thin = 10)
 # Get the plot
-tiff("./30_Analysis & Results/Figure 2.tiff", 
+tiff("./Figure 2.tiff", 
      height = 20, 
      width = 24, 
      units = 'cm', 
@@ -150,7 +145,7 @@ for (i in 1:n_obs_comp) {
                             n_burnin = 5000,
                             n_thin = 10)
 }
-mcmc_diagnostics(re_pmas[[4]], par = c("tau", "EM[2,1]"))
+mcmc_diagnostics(re_pmas[[1]], par = c("tau", "EM[2,1]"))
 
 # Obtain results in data-frame
 abs_pmas0 <- list() 
@@ -167,11 +162,11 @@ rownames(abs_pmas) <- NULL
 
 ## Save PMA results as .RData
 # Only predicted risks
-save(abs_pmas, 
-     file = "./30_Analysis & Results/Results R analyses/pma_results.RData")
+#save(abs_pmas, 
+#     file = "./R/NMA & PMA results/pma_results.RData")
 # All results
 #save(re_pmas, 
-#     file = "./30_Analysis & Results/Results R analyses/pma_all_results.RData")
+#     file = "./R/NMA & PMA results/pma_all_results.RData")
 
 
 
@@ -203,5 +198,5 @@ trial_arm_data <- data.frame(apply(trial_arm_data1, 2, function(x) as.numeric(as
 
 
 ## Save trial results as .RData
-save(trial_arm_data, 
-     file = "./30_Analysis & Results/Results R analyses/trial_results.RData")
+#save(trial_arm_data, 
+#     file = "./R/NMA & PMA results/trial_results.RData")

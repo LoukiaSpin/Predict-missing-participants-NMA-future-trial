@@ -16,9 +16,9 @@ lapply(list.of.packages, require, character.only = TRUE); rm(list.of.packages)
 
 
 ## Load RData
-load("./30_Analysis & Results/Results R analyses/nma_results.RData") # nma_risk
-load("./30_Analysis & Results/Results R analyses/pma_results.RData") # abs_pmas
-load("./30_Analysis & Results/Results R analyses/trial_results.RData") # trial_arm_data
+load("./R/NMA & PMA results/nma_results.RData") # nma_risk
+load("./R/NMA & PMA results/pma_results.RData") # abs_pmas
+load("./R/NMA & PMA results/trial_results.RData") # trial_arm_data
 
 
 
@@ -78,7 +78,7 @@ levels(all_res$treat) <- c("placebo", "LABA", "ICS", "ICS+LABA", "tiotropium")
 
 
 ## Create the density plot ----
-tiff("./30_Analysis & Results/Figure 3.tiff", 
+tiff("./Figure 3.tiff", 
      height = 20, 
      width = 30, 
      units = 'cm', 
@@ -148,7 +148,7 @@ out_change$treat <- factor(out_change$treat, levels = interv)
 
 
 ## Create the barplots ----
-tiff("./30_Analysis & Results/Figure 4.tiff", 
+tiff("./Figure 4.tiff", 
      height = 20, 
      width = 30, 
      units = 'cm', 
