@@ -13,4 +13,4 @@ After downloading/cloning the repo, the user can use the .Rproj file to source a
 
 ## Output 
 
-Prerequisite R packages: [rnmamod](https://CRAN.R-project.org/package=rnmamod), [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggpubr](https://CRAN.R-project.org/package=ggpubr), and [ggrepel](https://CRAN.R-project.org/package=ggrepel).
+Prerequisite R packages: [rnmamod](https://CRAN.R-project.org/package=rnmamod), [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggpubr](https://CRAN.R-project.org/package=ggpubr), [ggrepel](https://CRAN.R-project.org/package=ggrepel), and [tidytext](https://CRAN.R-project.org/package=tidytext).
