@@ -38,7 +38,7 @@ tiff("./Figure 1.tiff",
      width = 40, 
      units = 'cm', 
      compression = "lzw", 
-     res = 600)
+     res = 400)
 ggarrange(mp_dataset, mp_network, 
           labels = c("a)", "b)"),
           common.legend = TRUE,

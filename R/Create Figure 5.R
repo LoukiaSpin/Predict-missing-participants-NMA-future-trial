@@ -49,12 +49,12 @@ all_res$treat <- factor(all_res$treat,
 
 
 ## Create the density plot ----
-tiff("./30_Analysis & Results/Figure 5.tiff", 
+tiff("./Figure 5.tiff", 
      height = 25, 
      width = 40, 
      units = 'cm', 
      compression = "lzw", 
-     res = 600)
+     res = 400)
 ggplot(all_res, 
        aes(x = as.factor(id), 
            y = mean, 
