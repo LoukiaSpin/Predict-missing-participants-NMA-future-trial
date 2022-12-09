@@ -75,8 +75,7 @@ for (i in 1:length(treat_names)) {
   nma_risk[[i]] <- re_nma[[i]]$abs_risk
 }
 names(nma_risk) <- treat_names
-#(nma_risk, 
-#     file = "./R/Results R analyses/nma_all refers.RData")
+#save(nma_risk, file = "./R/Results R analyses/nma_all refers.RData")
 
 
 
