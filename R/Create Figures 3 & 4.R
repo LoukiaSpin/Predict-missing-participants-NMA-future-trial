@@ -98,12 +98,12 @@ ggplot(data = all_res,
                 fill = "high"), 
             alpha = 0.005, colour = "#D55E00") +
   geom_line(aes(time, prob), 
-            size = 1.5) +
+            linewidth = 1.5) +
   geom_vline(data = trial_arm_data,
              aes(xintercept = m_perc),
              colour = "black",
              linetype = 3,
-             size = 0.8) +
+             linewidth = 0.8) +
   facet_grid(treat ~.) +
   scale_color_manual(values = c("black", "royalblue")) +
   labs(x = "predicted and observed % missing participants",
@@ -127,23 +127,23 @@ dev.off()
 
 
 
-## Prepare data for the barplots (% change) ----
-# Percentage change of % MOD (from each trial to NMA)
+## Prepare data for the barplots (% difference) ----
+# Percentage difference of % MOD (from each trial to NMA)
 interv <- levels(trial_arm_data$treat)
-perc_change <- trial_id <- list()
+perc_diff <- trial_id <- list()
 for (i in 1:n_treat) {
-  perc_change[[i]] <- round(((subset(trial_arm_data, treat == interv[i])[, 3] - nma_risk[i, 1]) / nma_risk[i, 1]) * 100, 0)
+  perc_diff[[i]] <- round(((subset(trial_arm_data, treat == interv[i])[, 3] - nma_risk[i, 1]) / nma_risk[i, 1]) * 100, 0)
   trial_id[[i]] <- subset(trial_arm_data, treat == interv[i])[, 1]
 }
 
 # Bring all together
-out_change <- data.frame(trial_id = unlist(trial_id), 
-                         change = unlist(perc_change),
-                         treat = rep(interv, do.call(cbind, lapply(perc_change, function(x) length(x)))))
-out_change$thres <- ifelse(unlist(perc_change) > 0, "high", "low")
+out_diff <- data.frame(trial_id = unlist(trial_id), 
+                         diff = unlist(perc_diff),
+                         treat = rep(interv, do.call(cbind, lapply(perc_diff, function(x) length(x)))))
+out_diff$thres <- ifelse(unlist(perc_diff) > 0, "high", "low")
   
 # Specify intervention order
-out_change$treat <- factor(out_change$treat, levels = interv)
+out_diff$treat <- factor(out_diff$treat, levels = interv)
 
 
 
@@ -154,21 +154,21 @@ tiff("./Figure 4.tiff",
      units = 'cm', 
      compression = "lzw", 
      res = 600)
-ggplot(out_change, 
-       aes(x = reorder_within(trial_id, by = change, within = treat),
-           y = change, 
+ggplot(out_diff, 
+       aes(x = reorder_within(trial_id, by = diff, within = treat),
+           y = diff, 
            fill = thres)) +
   geom_bar(stat = "identity") +
-  geom_text(aes(label = change), 
-            vjust = -0.2,
-             size = 3.6) +
+  geom_text(aes(label = diff, 
+            vjust = ifelse(diff >= 0, -0.2, 1)),
+            size = 3.6) +
   scale_fill_manual(values = c("low" = "#009E73", "high" = "#D55E00")) +
   scale_x_reordered() +
   facet_grid(. ~ treat, 
              scales = "free_x",
              space = "free_x") +
   labs(x = "Trial ID",
-       y = "% change in missing participants (from a trial to NMA)") +
+       y = "% difference in missing participants (from a trial to NMA)") +
   scale_y_continuous(breaks = seq(-100, 150, by = 25)) +
   guides(fill = "none") +
   theme_bw() +
